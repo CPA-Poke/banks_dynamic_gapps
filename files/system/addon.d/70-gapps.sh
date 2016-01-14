@@ -4,6 +4,18 @@
 # /system/addon.d/70-gapps.sh
 #
 
+#    This file contains parts from the scripts taken from the Open GApps Project by mfonville.
+#
+#    The Open GApps scripts are free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    These scripts are distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+
 # Execute
 . /tmp/backuptool.functions
 
@@ -33,6 +45,8 @@ cat <<EOF
   etc/preferred-apps/google.xml
   etc/sysconfig/google.xml
   etc/sysconfig/google_build.xml
+  etc/sysconfig/whitelist_com.android.omadm.service.xml
+  etc/updatecmds/google_generic_update.txt
   framework/com.google.android.camera.experimental2015.jar
   framework/com.google.android.dialer.support.jar
   framework/com.google.android.maps.jar

@@ -1,19 +1,16 @@
 #!/bin/bash
 
-# Copyright (C) 2015 Open GApps
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# Parts of this script are taken from the Open GApps project
+#    This file contains parts from the scripts taken from the Open GApps Project by mfonville.
+#
+#    The Open GApps scripts are free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    These scripts are distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
 
 # Define paths && variables
 TOOLSDIR=$(realpath .)/tools
@@ -40,6 +37,9 @@ TARGETAPK=$TARGETDIR/$(basename "$TARGETDIR").apk
   zipalign -f -p 4 "$TARGETAPK".orig "$TARGETAPK"
   rm -rf "$TARGETAPK".orig
 }
+
+# Define beginning time
+BEGIN=$(date +%s.%N)
    
 cd "$GAPPSDIR/dynamic/FaceLock/arm/app/FaceLock"
 dcapk 1> /dev/null 2>&1
@@ -94,11 +94,14 @@ cd "$TOOLSDIR"
 java -Xmx2048m -jar signapk.jar -w testkey.x509.pem testkey.pk8 "$ZIPNAME1" "$ZIPNAME1"
 mv -f "$ZIPNAME1" "$FINALDIR"
 cp -f "$FINALDIR"/"$ZIPNAME1" "$FINALDIR"/"$ZIPNAME2"
-cd
+
+# Define ending time
+END=$(date +%s.%N)
 
 clear
 sleep 2
 echo "All done creating GApps!"
+echo "Total time elapsed:$(echo "($END - $BEGIN) / 60" | bc) minutes ($(echo "$END - $BEGIN" | bc) seconds)"
 echo "You can find the completed GApp zips in the '$(realpath .)/out' directory"
 echo "Now flash dat ish"
 
