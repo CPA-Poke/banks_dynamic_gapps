@@ -26,7 +26,6 @@ package_extract_dir("dynamic", "/tmp");
 package_extract_file("scripts/dynamic.sh", "/tmp/dynamic.sh");
 set_perm(0, 0, 0777, "/tmp/dynamic.sh");
 run_program("/tmp/dynamic.sh");
-set_perm(0, 0, 0755, "/system/addon.d/01-cyngn.sh");
 show_progress(1, 15);
 ui_print("Setting permissions...");
 package_extract_file("scripts/permissions.sh", "/tmp/permissions.sh");
