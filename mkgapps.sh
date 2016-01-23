@@ -35,9 +35,6 @@ echo "|...||..||.......||....___||....___||_____..|...............";
 echo "|...|_|.||..._...||...|....|...|....._____|.|...............";
 echo "|_______||__|.|__||___|....|___|....|_______|...............";
 
-sleep 3
-clear
-
 # Define paths && variables
 TOOLSDIR=$(realpath .)/tools
 GAPPSDIR=$(realpath .)/files
@@ -65,7 +62,7 @@ TARGETAPK=$TARGETDIR/$(basename "$TARGETDIR").apk
 }
 
 # Define beginning time
-BEGIN=$(date +%s.%N)
+BEGIN=$(date +%s)
 
 # Begin the magic  
 cd "$GAPPSDIR/dynamic/FaceLock/arm/app/FaceLock"
@@ -91,6 +88,8 @@ dcapk 1> /dev/null 2>&1
 cd "$GAPPSDIR/dynamic/Velvet/arm/priv-app/Velvet"
 dcapk 1> /dev/null 2>&1
 cd "$GAPPSDIR/dynamic/Velvet/arm64/priv-app/Velvet"
+dcapk 1> /dev/null 2>&1
+cd "$GAPPSDIR/system/app/ChromeBookmarksSyncAdapter"
 dcapk 1> /dev/null 2>&1
 cd "$GAPPSDIR/system/app/GoogleCalendarSyncAdapter"
 dcapk 1> /dev/null 2>&1
@@ -123,13 +122,11 @@ mv -f "$ZIPNAME1" "$FINALDIR"
 cp -f "$FINALDIR"/"$ZIPNAME1" "$FINALDIR"/"$ZIPNAME2"
 
 # Define ending time
-END=$(date +%s.%N)
+END=$(date +%s)
 
-clear
-sleep 2
+echo " "
 echo "All done creating GApps!"
-echo "Total time elapsed:$(echo "($END - $BEGIN) / 60" | bc) minutes ($(echo "$END - $BEGIN" | bc) seconds)"
-echo "You can find the completed GApp zips in the '$(realpath .)/out' directory"
-echo "Now flash dat ish"
+echo "Total time elapsed: $(echo $(($END-$BEGIN)) | awk '{print int($1/60)"mins "int($1%60)"secs "}') ($(echo "$END - $BEGIN" | bc) seconds)"
+echo "Completed GApp zips are located in the '$FINALDIR' directory"
 
 exit 0
